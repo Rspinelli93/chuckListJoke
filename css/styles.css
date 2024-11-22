@@ -1,6 +1,6 @@
 body {
   font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
+  background-color: #b7b7b78a;
   margin: 0;
   padding: 0;
   display: flex;
@@ -27,5 +27,24 @@ button:hover {
   background-color: #0056b3;
 }
 
+ul {
+  padding: 0;
+  list-style: none;
+}
 
+ul button {
+  background-color: rgba(255, 0, 0, 0.748);
+}
+ul button:hover {
+  background-color: rgba(176, 0, 0, 0.747);
+}
+
+li {
+  background-color: #f0f0f0;
+  box-shadow: 2px 1px 1px rgb(87, 87, 87);
+  margin: 10px;
+  padding: 10px;
+  max-width: 680px;
+  min-width: 680px;
+}
 
