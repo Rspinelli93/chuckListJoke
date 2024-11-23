@@ -35,7 +35,7 @@ const llamadaChiste = () => {
 //Agregamos la accion al boton principal
 botonChiste.addEventListener('click', () => {
    llamadaChiste()
-   console.log(localStorage)
+   /* console.log(localStorage) */
 })
 
 
@@ -51,24 +51,46 @@ let mostrarChistes = (chiste, id) => {
 
 // Funcion que guarda chiste en el LocalStorage
 const guardarChiste = (chisteItem, id) => {
-    
-     localStorage.setItem(id, chisteItem) 
 
+    // Obtiene chistes guardados o crea array nuevo vacio
+    const chistesGuardados = JSON.parse(localStorage.getItem('chistes')) || [];
+    
+    // Agrega el nuevo chiste al array
+    chistesGuardados.push({ id, chiste: chisteItem });
+
+    // Guarda el array actualizado en localStorage
+    localStorage.setItem('chistes', JSON.stringify(chistesGuardados));
 }
 
 
 // Evento para el boton eliminar
 listaChistes.addEventListener('click', (event) => {
-
-        //Saca la caja
+    if (event.target.tagName === 'BUTTON') {
         const chisteItem = event.target.closest('.cajaChiste');
         chisteItem.remove();
 
-        // Saca del localStorage
         const id = event.target.id;
-        localStorage.removeItem(`${id}`)
+        const chistesGuardados = JSON.parse(localStorage.getItem('chistes')) || [];
+        const nuevosChistes = chistesGuardados.filter((chiste) => chiste.id != id);
+        localStorage.setItem('chistes', JSON.stringify(nuevosChistes));
+    }  
 
-        console.log(localStorage)
+});
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    // Recupera el array de chistes
+    const chistesGuardados = JSON.parse(localStorage.getItem('chistes')) || [];
+
+    // Muestra cada chiste en la lista
+    chistesGuardados.forEach((chiste) => {
+        mostrarChistes(chiste.chiste, chiste.id);
+    });    
+});
+
+borrarLista.addEventListener('click', () => {
+    listaChistes.innerHTML = '';
+    localStorage.clear();
 });
  
 
